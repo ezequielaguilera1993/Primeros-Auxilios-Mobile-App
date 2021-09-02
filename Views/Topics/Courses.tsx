@@ -13,7 +13,7 @@ import {
     Image
 } from 'react-native';
 import React, { useContext, useEffect, useState } from 'react';
-import { CoursesProps } from '../../App'
+import { TopicsProps } from '../../App'
 import Icon from 'react-native-ionicons'
 import LanguageContext from '../../Context/globalContext';
 const BOOK_LIST = [
@@ -22,7 +22,7 @@ const BOOK_LIST = [
     { id: 3, title: "El tercero", cover: "https://picsum.photos/102" },
 ]
 
-export function Courses({ route, navigation }: CoursesProps) {
+export function Topics({ route, navigation }: TopicsProps) {
     const inSpanish = useContext(LanguageContext).languageState.inSpanish
     const languageContext = useContext(LanguageContext)
 

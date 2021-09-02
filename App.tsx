@@ -24,21 +24,22 @@ import {
 } from 'react-native/Libraries/NewAppScreen';
 import { NavigationTree } from 'typescript';
 import { LanguageContextProvider, languageInitialState, languageReducer } from './Context/globalContext';
-import { Courses } from './Views/Home/Courses';
-import { Info } from './Views/Home/Info';
+import { Info } from './Views/Topics/Info';
 import { Landing } from './Views/Landing';
 import { Play } from './Views/Play';
+import { Topics } from './Views/Topics/Courses';
+import { StyleSheet, View } from 'react-native';
 
 type StackParamList = {
   Landing: undefined;
   Home: undefined
-  Courses: undefined;
+  Topics: undefined;
   Info: undefined;
   Play: { name: string | undefined };
 };
 const Stack = createNativeStackNavigator<StackParamList>();
 
-export type CoursesProps = NativeStackScreenProps<StackParamList, 'Courses'>;
+export type TopicsProps = NativeStackScreenProps<StackParamList, 'Topics'>;
 export type PlayProps = NativeStackScreenProps<StackParamList, 'Play'>;
 export type LandingProps = NativeStackScreenProps<StackParamList, 'Landing'>;
 export type InfoProps = NativeStackScreenProps<StackParamList, 'Info'>;
@@ -53,36 +54,15 @@ const App = () => {
     languageState,
     languageDispatch
   }
-  /* 
-  
-   <>
-  
-                  <Tab.Navigator>
-                    <Tab.Screen
-                      name="Courses"
-                      component={Courses}
-                      options={{ title: "Courses" }}
-  
-                    />
-                    <Tab.Screen
-                      name="Info"
-                      component={Info}
-                      options={{ title: "Info" }}
-                    />
-  
-                  </Tab.Navigator>
-  
-                </>
-  */
 
   function Home() {
     return (<>
 
-      <Tab.Navigator>
+      <Tab.Navigator screenOptions={{ headerShown: true }}>
         <Tab.Screen
-          name="Courses"
-          component={Courses}
-          options={{ title: "Courses" }}
+          name="Topics"
+          component={Topics}
+          options={{ title: "Topics" }}
 
         />
         <Tab.Screen
@@ -98,13 +78,14 @@ const App = () => {
   }
 
   return (
-    <NavigationContainer>
-      <LanguageContextProvider value={languageContextValues}>
+    <NavigationContainer  >
+      <LanguageContextProvider value={languageContextValues}  >
 
-        <Stack.Navigator initialRouteName="Landing">
+        <Stack.Navigator initialRouteName="Landing" screenOptions={{ headerShown: false }}>
           <Stack.Screen
             name="Landing"
             component={Landing}
+          // options={{ headerShown: false }}
           />
 
           <Stack.Screen
@@ -122,10 +103,16 @@ const App = () => {
 
       </LanguageContextProvider>
     </NavigationContainer>
+
   )
 
 };
 
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: "black"
 
+  }
+})
 
 export default App;

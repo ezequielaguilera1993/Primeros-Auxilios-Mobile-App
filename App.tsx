@@ -53,6 +53,49 @@ const App = () => {
     languageState,
     languageDispatch
   }
+  /* 
+  
+   <>
+  
+                  <Tab.Navigator>
+                    <Tab.Screen
+                      name="Courses"
+                      component={Courses}
+                      options={{ title: "Courses" }}
+  
+                    />
+                    <Tab.Screen
+                      name="Info"
+                      component={Info}
+                      options={{ title: "Info" }}
+                    />
+  
+                  </Tab.Navigator>
+  
+                </>
+  */
+
+  function Home() {
+    return (<>
+
+      <Tab.Navigator>
+        <Tab.Screen
+          name="Courses"
+          component={Courses}
+          options={{ title: "Courses" }}
+
+        />
+        <Tab.Screen
+          name="Info"
+          component={Info}
+          options={{ title: "Info" }}
+        />
+
+      </Tab.Navigator>
+
+    </>)
+
+  }
 
   return (
     <NavigationContainer>
@@ -66,26 +109,7 @@ const App = () => {
 
           <Stack.Screen
             name="Home"
-            component={() =>
-              <>
-
-                <Tab.Navigator>
-                  <Tab.Screen
-                    name="Courses"
-                    component={Courses}
-                    options={{ title: "Courses" }}
-
-                  />
-                  <Tab.Screen
-                    name="Info"
-                    component={Info}
-                    options={{ title: "Info" }}
-                  />
-
-                </Tab.Navigator>
-
-              </>
-            }
+            component={Home}
           />
           <Stack.Screen
             name="Play"

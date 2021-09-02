@@ -30,7 +30,6 @@ export function Info({ route, navigation }: InfoProps) {
     return (
         <View >
             <Image source={{ uri: "https://scontent.feze15-1.fna.fbcdn.net/v/t1.18169-9/10259922_738343326281238_6218184070437026767_n.png?_nc_cat=106&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=oTpeTeVbSPwAX-Pok8o&tn=jiC2jQ2Ns81D7rIE&_nc_ht=scontent.feze15-1.fna&oh=f9c10cba57a107873495195fcb71d3a4&oe=615762E3" }} />
-            <Button title="Ingresar" onPress={handleOnPres} />
         </View>
     )
 }

@@ -5,20 +5,25 @@ import {
     ScrollView,
     StatusBar,
     StyleSheet,
-    Text,
     useColorScheme,
     View,
     TouchableHighlight,
     FlatList,
-    Image
+    Image,
+    Text,
+    Animated
 } from 'react-native';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import { LandingProps } from '../App'
 import Icon from 'react-native-ionicons'
 import LanguageContext from '../Context/globalContext';
 
+import DropShadow from "react-native-drop-shadow";
 
 export function Landing({ route, navigation }: LandingProps) {
+
+
+
     const inSpanish = useContext(LanguageContext).languageState.inSpanish
     const languageContext = useContext(LanguageContext)
 
@@ -26,11 +31,77 @@ export function Landing({ route, navigation }: LandingProps) {
         navigation.navigate("Home")
     }
 
+    const translation = useRef(new Animated.Value(1)).current
+
+    useEffect(() => {
+
+
+
+        const HeartbeatAnimation = (
+            value: Animated.Value,
+            minValue: number,
+            maxValue: number,
+            time: number
+        ) =>
+            Animated.loop(
+                Animated.sequence([
+                    Animated.timing(value, {
+                        toValue: maxValue,
+                        duration: time,
+                        useNativeDriver: true
+                    }),
+                    Animated.timing(value, {
+                        toValue: minValue,
+                        duration: time,
+                        useNativeDriver: true
+                    }),
+                    Animated.timing(value, {
+                        toValue: maxValue,
+                        duration: time,
+                        useNativeDriver: true
+                    }),
+                    Animated.timing(value, {
+                        toValue: minValue,
+                        duration: time,
+                        useNativeDriver: true
+                    })
+                ])
+            ).start();
+
+        HeartbeatAnimation(translation, 1, 1.03, 1000)
+        // Animated.timing(
+        //     translation,
+        //     {
+        //         toValue: 155,
+        //         duration: 800,
+        //         useNativeDriver: true
+
+        //     }
+        // ).start(({ finished }) => {
+
+        //     console.log(finished, 'finished')
+        // });
+
+    }, [translation])
 
     return (
         <View >
-            <Image style={styles.image} source={{ uri: "https://scontent.feze15-1.fna.fbcdn.net/v/t1.18169-9/10259922_738343326281238_6218184070437026767_n.png?_nc_cat=106&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=oTpeTeVbSPwAX-Pok8o&tn=jiC2jQ2Ns81D7rIE&_nc_ht=scontent.feze15-1.fna&oh=f9c10cba57a107873495195fcb71d3a4&oe=615762E3" }} />
-            <Button title="Ingresar" onPress={handleOnPres} />
+            <Animated.Image style={[styles.image, { transform: [{ scale: translation }] }]} source={{ uri: "https://i.imgur.com/8awXiKU.png" }} />
+
+            <DropShadow
+                style={{
+                    shadowColor: "#fff",
+                    shadowOffset: {
+                        width: 0,
+                        height: 0,
+                    },
+                    shadowOpacity: .5,
+                    shadowRadius: 3,
+                }}
+            >
+                <Button title="Ingresar" onPress={handleOnPres} />
+            </DropShadow>
+            {/* <Animated.View style={{ backgroundColor: "yellow", height: 100, width: 100, transform: [{ translateX: translation }] }}></Animated.View> */}
         </View>
     )
 }
@@ -38,6 +109,19 @@ export function Landing({ route, navigation }: LandingProps) {
 
 
 const styles = StyleSheet.create({
+    image: {
+        width: 400,
+        height: 400,
+        resizeMode: "cover", /* por defecto cover */
+        marginLeft: "auto",
+        marginRight: "auto",
+    },
+    shadow: {
+        backgroundColor: "blue",
+        height: 100,
+        width: 100,
+
+    },
     icon: {
         marginLeft: "auto",
         marginRight: 10
@@ -51,15 +135,10 @@ const styles = StyleSheet.create({
         borderTopWidth: 1,
         borderTopColor: '#c2c2c2',
     },
-    image: {
-        width: 100,
-        height: 100,
-        resizeMode: "cover", /* por defecto cover */
-        marginRight: 5
-    },
     text: {
-        color: "green"
+        color: "green",
     },
+
     sectionContainer: {
         marginTop: 32,
         paddingHorizontal: 24,

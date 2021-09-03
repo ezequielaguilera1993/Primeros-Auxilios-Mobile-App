@@ -9,7 +9,7 @@
  */
 
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { NavigationContainer } from '@react-navigation/native';
+import { DefaultTheme, NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React, { useReducer } from 'react';
@@ -45,7 +45,12 @@ export type LandingProps = NativeStackScreenProps<StackParamList, 'Landing'>;
 export type InfoProps = NativeStackScreenProps<StackParamList, 'Info'>;
 
 
+const styles = StyleSheet.create({
+  container: {
+    // backgroundColor: ""
 
+  }
+})
 
 const App = () => {
   const [languageState, languageDispatch] = useReducer(languageReducer, languageInitialState)
@@ -55,10 +60,12 @@ const App = () => {
     languageDispatch
   }
 
-  function Home() {
-    return (<>
+  const appColor = "rgb(32, 32, 32)"
 
-      <Tab.Navigator screenOptions={{ headerShown: true }}>
+  function Home() {
+    return (
+
+      <Tab.Navigator screenOptions={{ headerShown: false, tabBarActiveTintColor: "white" }}>
         <Tab.Screen
           name="Topics"
           component={Topics}
@@ -73,19 +80,27 @@ const App = () => {
 
       </Tab.Navigator>
 
-    </>)
+    )
 
   }
 
   return (
-    <NavigationContainer  >
+    <NavigationContainer theme={{
+      ...DefaultTheme, colors: {
+        primary: "grey",
+        background: appColor,
+        card: "white",
+        text: "white",
+        border: "green",
+        notification: "green",
+      }
+    }}  >
       <LanguageContextProvider value={languageContextValues}  >
 
-        <Stack.Navigator initialRouteName="Landing" screenOptions={{ headerShown: false }}>
+        <Stack.Navigator initialRouteName="Landing" screenOptions={{ headerShown: false, contentStyle: { } }}>
           <Stack.Screen
             name="Landing"
             component={Landing}
-          // options={{ headerShown: false }}
           />
 
           <Stack.Screen
@@ -108,11 +123,6 @@ const App = () => {
 
 };
 
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: "black"
 
-  }
-})
 
 export default App;

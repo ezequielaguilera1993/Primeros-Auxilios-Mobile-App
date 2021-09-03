@@ -16,12 +16,12 @@ import React, { useContext, useEffect, useState } from 'react';
 import { TopicsProps } from '../../App'
 import Icon from 'react-native-ionicons'
 import LanguageContext from '../../Context/globalContext';
+import { SText } from '../Components/Components';
 const BOOK_LIST = [
     { id: 1, title: "Libro primero", cover: "https://picsum.photos/100" },
     { id: 2, title: "Segundo libro", cover: "https://picsum.photos/101" },
     { id: 3, title: "El tercero", cover: "https://picsum.photos/102" },
 ]
-
 export function Topics({ route, navigation }: TopicsProps) {
     const inSpanish = useContext(LanguageContext).languageState.inSpanish
     const languageContext = useContext(LanguageContext)
@@ -45,16 +45,16 @@ export function Topics({ route, navigation }: TopicsProps) {
                         <TouchableHighlight onPress={handleOnPres}>
                             <View style={styles.container}>
                                 <Image style={styles.image} source={{ uri: i.item.cover }} />
-                                <Text >{i.item.title}</Text>
+                                <SText >{i.item.title}</SText>
                                 <Icon style={styles.icon} name="arrow-dropright"></Icon>
                             </View>
                         </TouchableHighlight>
                 }
                 keyExtractor={item => item.id.toString()}
-                ListHeaderComponent={<Text> {inSpanish ? "Lista de libros" : "BooksList"}</Text>}
+                ListHeaderComponent={<SText> {inSpanish ? "Lista de libros" : "BooksList"}</SText>}
                 ListFooterComponent={<View>
                     <Button title="change Language" onPress={() => { languageContext.languageDispatch({ type: "CHANGE_LANGUAGE" }) }} />
-                    <Text>_______Footer________</Text>
+                    <SText>_______Footer________</SText>
                 </View>}
             >
             </FlatList>

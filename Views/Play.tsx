@@ -5,34 +5,20 @@ import {
     ScrollView,
     StatusBar,
     StyleSheet,
-    Text,
     useColorScheme,
     View,
     TouchableHighlight,
-    FlatList
+    FlatList,
 } from 'react-native';
 import React from 'react';
 
+
 import { PlayProps } from '../App'
-
-
-export function Play({ route, navigation }: PlayProps) {
-
-    return (<ScrollView>
-        <View >
-            <TouchableHighlight onPress={() => { navigation.navigate("Home") }}>
-                <Text>{route.params?.name}</Text>
-            </TouchableHighlight>
-
-        </View>
-    </ScrollView>
-    )
-}
-
+import { SText } from './Components/Components';
 
 const styles = StyleSheet.create({
     text: {
-        color: "green"
+        color: "white"
     },
     sectionContainer: {
         marginTop: 32,
@@ -51,3 +37,19 @@ const styles = StyleSheet.create({
         fontWeight: '700',
     },
 });
+
+export function Play({ route, navigation }: PlayProps) {
+
+    return (<ScrollView>
+        <View >
+            <TouchableHighlight onPress={() => { navigation.navigate("Home") }}>
+
+                <SText>{route.params?.name}</SText>
+            </TouchableHighlight>
+
+        </View>
+    </ScrollView>
+    )
+}
+
+

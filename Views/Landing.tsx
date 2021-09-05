@@ -22,20 +22,19 @@ import DropShadow from "react-native-drop-shadow";
 
 export function Landing({ route, navigation }: LandingProps) {
 
-
-
     const inSpanish = useContext(LanguageContext).languageState.inSpanish
     const languageContext = useContext(LanguageContext)
 
     function handleOnPres() {
         navigation.navigate("Home")
     }
+    let changeLanguage = () => { languageContext.languageDispatch({ type: "CHANGE_LANGUAGE" }) }
+
+
 
     const translation = useRef(new Animated.Value(1)).current
 
     useEffect(() => {
-
-
 
         const HeartbeatAnimation = (
             value: Animated.Value,
@@ -86,6 +85,7 @@ export function Landing({ route, navigation }: LandingProps) {
 
     return (
         <View >
+            <Button title={inSpanish ? "anda la osa" : "change Language"} onPress={changeLanguage} />
             <Animated.Image style={[styles.image, { transform: [{ scale: translation }] }]} source={{ uri: "https://i.imgur.com/8awXiKU.png" }} />
 
             <DropShadow
@@ -100,6 +100,7 @@ export function Landing({ route, navigation }: LandingProps) {
                 }}
             >
                 <Button title="Ingresar" onPress={handleOnPres} />
+
             </DropShadow>
             {/* <Animated.View style={{ backgroundColor: "yellow", height: 100, width: 100, transform: [{ translateX: translation }] }}></Animated.View> */}
         </View>
@@ -116,43 +117,8 @@ const styles = StyleSheet.create({
         marginLeft: "auto",
         marginRight: "auto",
     },
-    shadow: {
-        backgroundColor: "blue",
-        height: 100,
-        width: 100,
+    button: {
+        width: 10
+    }
 
-    },
-    icon: {
-        marginLeft: "auto",
-        marginRight: 10
-    },
-    container: {
-        flexDirection: "row",
-        paddingVertical: 15,
-        paddingLeft: 10,
-        borderBottomWidth: 1,
-        borderBottomColor: '#c7c7c7',
-        borderTopWidth: 1,
-        borderTopColor: '#c2c2c2',
-    },
-    text: {
-        color: "green",
-    },
-
-    sectionContainer: {
-        marginTop: 32,
-        paddingHorizontal: 24,
-    },
-    sectionTitle: {
-        fontSize: 10,
-        fontWeight: '600',
-    },
-    sectionDescription: {
-        marginTop: 8,
-        fontSize: 18,
-        fontWeight: '400',
-    },
-    highlight: {
-        fontWeight: '700',
-    },
 });

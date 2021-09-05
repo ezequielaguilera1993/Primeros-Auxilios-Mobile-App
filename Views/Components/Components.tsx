@@ -9,18 +9,21 @@ import {
     useColorScheme,
     View,
     TouchableHighlight,
-    FlatList
+    FlatList,
+    TextStyle
 } from 'react-native';
 import React from 'react';
 
 import { useRef } from "react";
 import { Animated } from "react-native";
 
-export const SText: React.FC<{}> = ({ children }) => {
+export const SText: React.FC<{ customStyle?: TextStyle }> = ({ children, customStyle }) => {
+
+
     return (
         <Text
-            style={{ color: "white" }}>
-            hola
+            style={{ color: "white", ...customStyle }}>
+            {children}
         </Text>
     );
 };

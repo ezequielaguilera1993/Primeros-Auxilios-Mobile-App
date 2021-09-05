@@ -1,8 +1,20 @@
 
 
-export type QA = typeof InfartoAcv
+export type QA = iPregunta[]
+export type iPregunta = {
+    p: string;
+    o: {
+        A: string;
+        B: string;
+        C: string;
+        D: string;
+    };
+    x: "A" | "B" | "C" | "D";
+    i: string;
+}
 
-export const InfartoAcv = [
+
+export const InfartoAcv: QA = [
     {
         p: "¿Que es un InfartoAcv?",
         o: {
@@ -12,7 +24,7 @@ export const InfartoAcv = [
             C: "añksjdaksdmasd",
             D: "alskdmñasldkmasd",
         },
-        x: "A",
+        x: "B",
         i: "http://www.maestrosdelweb.com/images/2009/08/crayones_jpg.jpg"
     }
     ,
@@ -30,9 +42,7 @@ export const InfartoAcv = [
     }
     ,
 ]
-
-
-export const Infarto = [
+export const Infarto: QA = [
     {
         p: "¿Que es un Infarto?",
         o: {
@@ -60,9 +70,7 @@ export const Infarto = [
     }
     ,
 ]
-
-
-export const Acv = [
+export const Acv: QA = [
     {
         p: "¿Que es un Acv?",
         o: {
@@ -90,9 +98,7 @@ export const Acv = [
     }
     ,
 ]
-
-
-export const Heimlich = [
+export const Heimlich: QA = [
     {
         p: "¿Que es un Heimlich?",
         o: {
@@ -120,9 +126,7 @@ export const Heimlich = [
     }
     ,
 ]
-
-
-export const HeimlichBebés = [
+export const HeimlichBebés: QA = [
     {
         p: "¿Que es un HeimlichBebés?",
         o: {
@@ -149,10 +153,60 @@ export const HeimlichBebés = [
         i: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTdAxaoLG1g0Mb4EWelP7GC14hiN1k2VPErmTPjNOB03nMJuCXPU7yxxWk9xzVwz0vfufE&usqp=CAU"
     }
     ,
+    {
+        p: "¿Cómo sasda?",
+        o: {
+
+            A: "aaPaula",
+            B: "aaPepa",
+            C: "aaCarla",
+            D: "aaCuaca",
+        },
+        x: "B",
+        i: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTdAxaoLG1g0Mb4EWelP7GC14hiN1k2VPErmTPjNOB03nMJuCXPU7yxxWk9xzVwz0vfufE&usqp=CAU"
+    }
+    ,
+    {
+        p: "¿Cómadma?",
+        o: {
+
+            A: "aaPaula",
+            B: "aaPepa",
+            C: "aaCarla",
+            D: "aaCuaca",
+        },
+        x: "B",
+        i: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTdAxaoLG1g0Mb4EWelP7GC14hiN1k2VPErmTPjNOB03nMJuCXPU7yxxWk9xzVwz0vfufE&usqp=CAU"
+    }
+    ,
+    {
+        p: "¿Cóefllama?",
+        o: {
+
+            A: "aaPaula",
+            B: "aaPepa",
+            C: "aaCarla",
+            D: "aaCuaca",
+        },
+        x: "B",
+        i: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTdAxaoLG1g0Mb4EWelP7GC14hiN1k2VPErmTPjNOB03nMJuCXPU7yxxWk9xzVwz0vfufE&usqp=CAU"
+    }
+    ,
+    {
+        p: "¿Cómo 234a?",
+        o: {
+
+            A: "aaPaula",
+            B: "aaPepa",
+            C: "aaCarla",
+            D: "aaCuaca",
+        },
+        x: "B",
+        i: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTdAxaoLG1g0Mb4EWelP7GC14hiN1k2VPErmTPjNOB03nMJuCXPU7yxxWk9xzVwz0vfufE&usqp=CAU"
+    }
+    ,
 ]
-
-
-export const HeimlichAdultos = [
+export const HeimlichAdultos: QA = [
     {
         p: "¿Que es un HeimlichAdultos?",
         o: {
@@ -180,9 +234,7 @@ export const HeimlichAdultos = [
     }
     ,
 ]
-
-
-export const Rcp = [
+export const Rcp: QA = [
     {
         p: "¿Que es un Rcp?",
         o: {
@@ -210,9 +262,7 @@ export const Rcp = [
     }
     ,
 ]
-
-
-export const RcpBebés = [
+export const RcpBebés: QA = [
     {
         p: "¿Que es un RcpBebés?",
         o: {
@@ -240,9 +290,7 @@ export const RcpBebés = [
     }
     ,
 ]
-
-
-export const RcpAdultos = [
+export const RcpAdultos: QA = [
     {
         p: "¿Que es un RcpAdultos?",
         o: {

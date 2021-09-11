@@ -1,3 +1,4 @@
+import { StoreType } from "../../shared/Redux/Store"
 
 
 export type QA = iPregunta[]
@@ -320,6 +321,21 @@ export const RcpAdultos: QA = [
 ]
 
 
+export const QAinitialState: StoreType = {
+
+    questionnaires: [
+        { name: "InfartoAcv", values: { answeredQuestions: 0, allQuestions: InfartoAcv.length } },
+        { name: "Infarto", values: { answeredQuestions: 0, allQuestions: Infarto.length } },
+        { name: "Acv", values: { answeredQuestions: 0, allQuestions: Acv.length } },
+        { name: "Heimlich", values: { answeredQuestions: 0, allQuestions: Heimlich.length } },
+        { name: "HeimlichBebés", values: { answeredQuestions: 0, allQuestions: HeimlichBebés.length } },
+        { name: "HeimlichAdultos", values: { answeredQuestions: 0, allQuestions: HeimlichAdultos.length } },
+        { name: "Rcp", values: { answeredQuestions: 0, allQuestions: Rcp.length } },
+        { name: "RcpBebés", values: { answeredQuestions: 0, allQuestions: RcpBebés.length } },
+        { name: "RcpAdultos", values: { answeredQuestions: 0, allQuestions: RcpAdultos.length } },
+    ]
+
+}
 
 
 

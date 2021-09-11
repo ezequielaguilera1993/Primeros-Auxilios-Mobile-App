@@ -165,7 +165,7 @@ export function Play({ route, navigation }: PlayProps) {
             <Option textStyle={s.option} optionSelected="B" />
             <Option textStyle={s.option} optionSelected="C" />
             <Option textStyle={s.option} optionSelected="D" />
-            <Button title="changing" onPress={() => {
+            <Button title="test_Toast" onPress={() => {
                 SETtoast(toast === TOAST_CORRECTA ? TOAST_INCORRECTA : TOAST_CORRECTA)
             }
             } />

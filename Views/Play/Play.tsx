@@ -14,14 +14,17 @@ import React, { useEffect, useRef, useState } from 'react';
 import Icon from 'react-native-ionicons'
 import { options, PlayProps } from '../../App'
 import { SText } from '../Components/Components';
-import { InfartoAcv, Infarto, Acv, Heimlich, HeimlichBebés, HeimlichAdultos, Rcp, RcpBebés, RcpAdultos, } from './Q&A';
+import { InfartoAcv, Infarto, Acv, Heimlich, HeimlichBebés, HeimlichAdultos, Rcp, RcpBebés, RcpAdultos } from './Q&A';
 
 import { QA, iPregunta } from './Q&A';
 import Toast from 'react-native-simple-toast';
 import { isIterationStatement } from 'typescript';
+import { useDispatch, useSelector } from 'react-redux';
+import { StoreType } from '../../shared/Redux/Store';
+import { RootState } from '../../shared/Redux/Reducers';
+import { addOneAnswered } from '../../shared/Redux/Actions/Actions';
 
 // Toast.show('This is a toast.');
-
 
 // Toast.show('This is nicely visible even if you call this when an Alert is shown', Toast.SHORT, [
 // 'UIAlertController',
@@ -29,7 +32,13 @@ import { isIterationStatement } from 'typescript';
 
 let a = ViewPropTypes.style
 export const SuperposeToast: React.FC<{ toastStyle: TextStyle, text: string }> = ({ toastStyle, text }) => {
-    console.log("aca!");
+    // const dispatch = useDispatch();
+    // useEffect(() => {
+    //     dispatch(addOneAnswered("Acv"))
+    // }, [])
+
+    const store: StoreType = useSelector((state: RootState) => state).defaultReducer
+    console.log(store)
 
     const animateValue = useRef(new Animated.Value(0)).current
 

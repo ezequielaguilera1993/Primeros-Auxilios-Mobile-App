@@ -22,7 +22,6 @@ import { EnumDeclaration, EnumMember, EnumType } from 'typescript';
 
 
 
-
 export function Topics({ route, navigation }: TopicsProps) {
 
     const Cuestionario: React.FC<{ label: string, option: options }> = ({ label, option }) => {

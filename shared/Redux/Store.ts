@@ -1,9 +1,9 @@
 import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import { rootReducer } from './Reducers';
+import { questionnaireNamesTypes } from '../../Views/Play/Q&A';
 
-export type cuetionaryType = {
-    name: string,
+export type questionnaireProperties = {
     values: {
         allQuestions: number,
         answeredQuestions: number
@@ -11,8 +11,11 @@ export type cuetionaryType = {
 }
 
 export type StoreType = {
-    questionnaires: cuetionaryType[]
+    questionnaires: {
+        [questionnaireName in questionnaireNamesTypes]: questionnaireProperties
+    }
 }
+
 
 
 const composeEnhancers = compose;

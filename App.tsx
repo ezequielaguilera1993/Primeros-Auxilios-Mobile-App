@@ -29,6 +29,10 @@ import { Landing } from './Views/Landing';
 import { Play } from './Views/Play/Play';
 import { Animated, StyleSheet, Text, View } from 'react-native';
 import { Topics } from './Views/Home/Topics';
+import { Provider } from "react-redux"; //Sirve para proveer el estado global de redux a los componentes de React
+import store from './shared/Redux/Store';
+import { questionnaireNamesTypes } from './Views/Play/Q&A';
+
 export enum options {
   InfartoAcv,
   Infarto,
@@ -41,12 +45,13 @@ export enum options {
   RcpAdultos,
 
 }
+
 type StackParamList = {
   Landing: undefined;
   Home: undefined
   Topics: undefined;
   Info: undefined;
-  Play: { option: options };
+  Play: { option: questionnaireNamesTypes };
 };
 const Stack = createNativeStackNavigator<StackParamList>();
 
@@ -100,7 +105,7 @@ const App: React.FC = () => {
 
   const appColor = "rgb(20, 20, 20)"
   return (
-    <LanguageContextProvider value={languageContextValues}>
+    <Provider store={store}>
       <View style={{ flex: 1, backgroundColor: appColor }}>
         <NavigationContainer theme={{
           ...DarkTheme, colors: {
@@ -127,7 +132,8 @@ const App: React.FC = () => {
           </Stack.Navigator>
         </NavigationContainer>
       </View>
-    </LanguageContextProvider>
+    </Provider>
+
   )
 
 };

@@ -17,104 +17,55 @@ import { SText } from '../Components/Components';
 import { InfartoAcv, Infarto, Acv, Heimlich, HeimlichBebés, HeimlichAdultos, Rcp, RcpBebés, RcpAdultos } from './Q&A';
 
 import { QA, iPregunta } from './Q&A';
-import Toast from 'react-native-simple-toast';
 import { isIterationStatement } from 'typescript';
 import { useDispatch, useSelector } from 'react-redux';
 import { StoreType } from '../../shared/Redux/Store';
 import { RootState } from '../../shared/Redux/Reducers';
 import { addOneAnswered } from '../../shared/Redux/Actions/Actions';
-
+import { SuperposeToast } from './SuperposeToast';
 // Toast.show('This is a toast.');
 
 // Toast.show('This is nicely visible even if you call this when an Alert is shown', Toast.SHORT, [
 // 'UIAlertController',
 // ]);
 
-let a = ViewPropTypes.style
-export const SuperposeToast: React.FC<{ toastStyle: TextStyle, text: string }> = ({ toastStyle, text }) => {
+
+export function Play({ route, navigation }: PlayProps) {
+
     // const dispatch = useDispatch();
     // useEffect(() => {
     //     dispatch(addOneAnswered("Acv"))
     // }, [])
 
-    const store: StoreType = useSelector((state: RootState) => state).defaultReducer
-    console.log(store)
-
-    const animateValue = useRef(new Animated.Value(0)).current
-
-    useEffect(() => {
-        const SuperposeToastAnimation = (
-            value: Animated.Value,
-            minValue: number,
-            maxValue: number,
-            appear: number,
-            stand: number,
-            desAppear: number = appear
-        ) =>
-            Animated.loop(
-                Animated.sequence([
-                    Animated.timing(value, {
-                        toValue: maxValue,
-                        duration: appear,
-                        useNativeDriver: true
-                    }),
-
-                    Animated.timing(value, {
-                        toValue: maxValue,
-                        duration: stand,
-                        useNativeDriver: true
-                    }),
-
-                    Animated.timing(value, {
-                        toValue: minValue,
-                        duration: desAppear,
-                        useNativeDriver: true
-                    }),
-
-                ]), { iterations: 1 }
-            ).start(() => {
-                text = ""
-            });
-        SuperposeToastAnimation(animateValue, 0, 1, 100, 300, 300)
-    }, [text])
-
-    return <Animated.Text style={[{
-        color: "black", opacity: animateValue, alignSelf: "center", position: "absolute", bottom: 80,
-        backgroundColor: "#cddce0", borderRadius: 20, fontSize: 20, paddingHorizontal: 10, paddingVertical: 3,
-        fontWeight: "600"
-    }, toastStyle]}>{text}</Animated.Text>
-}
+    // useEffect(() => {
 
 
-export function Play({ route, navigation }: PlayProps) {
+    // }, [])
     const TOAST_CORRECTA = "Correcta 😎"
     const TOAST_INCORRECTA = "Incorrecta😕"
     const [toast, SETtoast] = useState<typeof TOAST_CORRECTA | typeof TOAST_INCORRECTA | null>(null)
-
-
-
 
     let [cursor, SETcursor] = useState<number>(0)
 
     let choosenStack: QA;
     switch (route.params.option) {
-        case options.InfartoAcv: choosenStack = InfartoAcv
+        case "InfartoAcv": choosenStack = InfartoAcv
             break;
-        case options.Infarto: choosenStack = Infarto
+        case "Infarto": choosenStack = Infarto
             break;
-        case options.Acv: choosenStack = Acv
+        case "Acv": choosenStack = Acv
             break;
-        case options.Heimlich: choosenStack = Heimlich
+        case "Heimlich": choosenStack = Heimlich
             break;
-        case options.HeimlichBebés: choosenStack = HeimlichBebés
+        case "HeimlichBebés": choosenStack = HeimlichBebés
             break;
-        case options.HeimlichAdultos: choosenStack = HeimlichAdultos
+        case "HeimlichAdultos": choosenStack = HeimlichAdultos
             break;
-        case options.Rcp: choosenStack = Rcp
+        case "Rcp": choosenStack = Rcp
             break;
-        case options.RcpBebés: choosenStack = RcpBebés
+        case "RcpBebés": choosenStack = RcpBebés
             break;
-        case options.RcpAdultos: choosenStack = RcpAdultos
+        case "RcpAdultos": choosenStack = RcpAdultos
             break;
 
         default: { choosenStack = InfartoAcv; Alert.alert("ERROR!") }

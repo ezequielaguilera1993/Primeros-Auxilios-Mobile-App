@@ -18,13 +18,39 @@ import Icon from 'react-native-ionicons'
 import LanguageContext, { LanguageContextConsumer } from '../../Context/globalContext';
 import { SText } from '../Components/Components';
 import { EnumDeclaration, EnumMember, EnumType } from 'typescript';
+import { questionnaireNamesTypes } from '../Play/Q&A';
+import { StoreType } from '../../shared/Redux/Store';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../shared/Redux/Reducers';
 
 
 
 
 export function Topics({ route, navigation }: TopicsProps) {
 
-    const Cuestionario: React.FC<{ label: string, option: options }> = ({ label, option }) => {
+    const store: StoreType = useSelector((state: RootState) => state).defaultReducer
+    type values = {
+        allQuestions: number;
+        answeredQuestions: number;
+    }
+    const valuesInfartoAcv: values = store.questionnaires["InfartoAcv"].values
+    const valuesRcp: values = store.questionnaires["Rcp"].values
+    const valuesHeimlich: values = store.questionnaires["Heimlich"].values
+
+    const valuesInfarto: values = store.questionnaires["Infarto"].values
+    const valuesAcv: values = store.questionnaires["Acv"].values
+    const valuesRcpBebés: values = store.questionnaires["RcpBebés"].values
+
+    const valuesRcpAdultos: values = store.questionnaires["RcpAdultos"].values
+    const valuesHeimlichBebés: values = store.questionnaires["HeimlichBebés"].values
+    const valuesHeimlichAdultos: values = store.questionnaires["HeimlichAdultos"].values
+
+
+    function handleOnPres(option: questionnaireNamesTypes) {
+        navigation.navigate("Play", { option })
+    }
+
+    const Cuestionario: React.FC<{ label: string, option: questionnaireNamesTypes, values: values }> = ({ label, option }) => {
 
         return <TouchableHighlight style={{
             width: "70%"
@@ -32,17 +58,13 @@ export function Topics({ route, navigation }: TopicsProps) {
             {/* <Image style={s.image} source={{ uri: "https://picsum.photos/100" }} /> */}
             <View style={s.cuestionarioContainer}>
                 <SText style={s.cuestionario}>{label}</SText>
+
+                <SText style={s.cuestionario}>{valuesAcv.answeredQuestions + " / " + valuesAcv.allQuestions}</SText>
             </View>
         </TouchableHighlight>
     }
     // let languageContext = useContext(LanguageContext)
     // let isSpanish = languageContext.languageState.inSpanish
-
-    function handleOnPres(option: options) {
-
-        navigation.navigate("Play", { option })
-
-    }
 
     // const [isSpanish, SETisSpanish] = useState<boolean>(false)
 
@@ -54,23 +76,21 @@ export function Topics({ route, navigation }: TopicsProps) {
     return (
         <ScrollView >
 
-
-
             <View style={{ alignItems: "center" }} >
                 <SText customStyle={s.title}>Cuestionarios Generales</SText>
 
-                <Cuestionario option={options.InfartoAcv} label="Infarto/Acv" />
-                <Cuestionario option={options.Rcp} label="Rcp" />
-                <Cuestionario option={options.Heimlich} label="Heimlich" />
+                <Cuestionario option={"InfartoAcv"} label="Infarto/Acv" />
+                <Cuestionario option={"Rcp"} label="Rcp" />
+                <Cuestionario option={"Heimlich"} label="Heimlich" />
 
                 <SText customStyle={s.title}>Cuestionarios Especificos</SText>
 
-                <Cuestionario option={options.Infarto} label="Infarto" />
-                <Cuestionario option={options.Acv} label="Acv" />
-                <Cuestionario option={options.RcpBebés} label="Rcp en Bebés" />
-                <Cuestionario option={options.RcpAdultos} label="Rcp en Adultos" />
-                <Cuestionario option={options.HeimlichBebés} label="Heimlich en Bebés" />
-                <Cuestionario option={options.HeimlichAdultos} label="Heimlich en Adultos" />
+                <Cuestionario option={"Infarto"} label="Infarto" />
+                <Cuestionario option={"Acv"} label="Acv" />
+                <Cuestionario option={"RcpBebés"} label="Rcp en Bebés" />
+                <Cuestionario option={"RcpAdultos"} label="Rcp en Adultos" />
+                <Cuestionario option={"HeimlichBebés"} label="Heimlich en Bebés" />
+                <Cuestionario option={"HeimlichAdultos"} label="Heimlich en Adultos" />
             </View>
         </ScrollView>
     )
@@ -94,11 +114,13 @@ const s = StyleSheet.create({
     cuestionarioContainer: {
         backgroundColor: "#313131",
         paddingVertical: 8,
-        paddingHorizontal: 6,
+        paddingHorizontal: 12,
         borderRadius: 7,
         marginHorizontal: 2,
         marginVertical: 2,
         marginBottom: 4,
+        flexDirection: "row",
+        justifyContent: "space-between"
     },
     cuestionario: {
         fontSize: 16,

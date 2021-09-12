@@ -10,23 +10,35 @@ import {
     View,
     TouchableHighlight,
     FlatList,
-    TextStyle
+    TextStyle,
+    StyleProp,
+    TouchableHighlightProps
 } from 'react-native';
 import React from 'react';
 
 import { useRef } from "react";
 import { Animated } from "react-native";
 
-export const SText: React.FC<{ customStyle?: TextStyle }> = ({ children, customStyle }) => {
+export const STouch: React.FC<{ customStyle?: TouchableHighlightProps }> = ({ children, customStyle }) => {
+    return (
+        <TouchableHighlight
+            {...customStyle}
+        >
+            {children}
+        </TouchableHighlight>
+    );
+};
 
 
+export const SButton: React.FC<{ customStyle?: TextStyle }> = ({ children, customStyle }) => {
     return (
         <Text
-            style={{ color: "white", ...customStyle }}>
+            style={[{ color: "white" }, customStyle]}>
             {children}
         </Text>
     );
 };
+
 
 
 

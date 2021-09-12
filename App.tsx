@@ -22,16 +22,16 @@ import {
   LearnMoreLinks,
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
-import { NavigationTree } from 'typescript';
-import { LanguageContextProvider, languageInitialState, languageReducer } from './Context/globalContext';
 import { Info } from './Views/Home/Info';
 import { Landing } from './Views/Landing';
 import { Play } from './Views/Play/Play';
-import { Animated, StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import { Topics } from './Views/Home/Topics';
-import { Provider } from "react-redux"; //Sirve para proveer el estado global de redux a los componentes de React
-import store from './shared/Redux/Store';
+import { Provider, } from "react-redux"; //Sirve para proveer el estado global de redux a los componentes de React
+import { persistor, store } from './Redux/Store';
 import { questionnaireNamesTypes } from './Views/Play/Q&A';
+import { PersistGate } from 'redux-persist/integration/react';
+import { actionType, addOneAnswered, addOneAnsweredType, reset } from './Redux/Actions/Actions';
 
 export enum options {
   InfartoAcv,
@@ -71,14 +71,6 @@ const styles = StyleSheet.create({
 const App: React.FC = () => {
 
 
-  const [languageState, languageDispatch] = useReducer(languageReducer, languageInitialState)
-
-  const languageContextValues = {
-    languageState,
-    languageDispatch
-  }
-
-
 
 
 
@@ -106,33 +98,37 @@ const App: React.FC = () => {
   const appColor = "rgb(20, 20, 20)"
   return (
     <Provider store={store}>
-      <View style={{ flex: 1, backgroundColor: appColor }}>
-        <NavigationContainer theme={{
-          ...DarkTheme, colors: {
-            ...DarkTheme.colors,
-            background: appColor,
-          }
-        }}>
-          <Stack.Navigator initialRouteName="Landing" screenOptions={{ headerShown: false, contentStyle: {} }}>
-            <Stack.Screen
-              name="Landing"
-              component={Landing}
-            />
+      <PersistGate loading={null} persistor={persistor}>
+        <View style={{ flex: 1, backgroundColor: appColor }}>
+          <NavigationContainer theme={{
+            ...DarkTheme, colors: {
+              ...DarkTheme.colors,
+              background: appColor,
+            }
+          }}>
+            <Stack.Navigator initialRouteName="Landing" screenOptions={{ headerShown: false, contentStyle: {} }}>
+              <Stack.Screen
+                name="Landing"
+                component={Landing}
+              />
 
-            <Stack.Screen
-              name="Home"
-              component={Home}
-            // options={{ contentStyle: { backgroundColor: "red" } }}
-            />
-            <Stack.Screen
-              name="Play"
-              component={Play}
-              options={{ title: "Play" }}
-            />
-          </Stack.Navigator>
-        </NavigationContainer>
-      </View>
-    </Provider>
+              <Stack.Screen
+                name="Home"
+                component={Home}
+              // options={{ contentStyle: { backgroundColor: "red" } }}
+              />
+              <Stack.Screen
+                name="Play"
+                component={Play}
+                options={{ title: "Play" }}
+              />
+            </Stack.Navigator>
+          </NavigationContainer>
+        </View>
+
+      </PersistGate>
+
+    </Provider >
 
   )
 

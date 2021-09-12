@@ -13,22 +13,19 @@ import {
     Text,
     Animated
 } from 'react-native';
-import React, { useContext, useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { LandingProps } from '../App'
 import Icon from 'react-native-ionicons'
-import LanguageContext from '../Context/globalContext';
-
 import DropShadow from "react-native-drop-shadow";
+import { useDispatch } from 'react-redux';
+import { actionType, reset } from '../Redux/Actions/Actions';
 
 export function Landing({ route, navigation }: LandingProps) {
 
-    const inSpanish = useContext(LanguageContext).languageState.inSpanish
-    const languageContext = useContext(LanguageContext)
 
     function handleOnPres() {
         navigation.navigate("Home")
     }
-    let changeLanguage = () => { languageContext.languageDispatch({ type: "CHANGE_LANGUAGE" }) }
 
 
 
@@ -85,7 +82,7 @@ export function Landing({ route, navigation }: LandingProps) {
 
     return (
         <View >
-            <Button title={inSpanish ? "anda la osa" : "change Language"} onPress={changeLanguage} />
+            <Button title={"anda la osachange Language"} onPress={() => { }} />
             <Animated.Image style={[styles.image, { transform: [{ scale: translation }] }]} source={{ uri: "https://i.imgur.com/8awXiKU.png" }} />
 
             <DropShadow

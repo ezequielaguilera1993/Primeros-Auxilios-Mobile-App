@@ -1,7 +1,6 @@
-import { useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Animated, TextStyle } from 'react-native';
 import Toast from 'react-native-simple-toast';
-
 
 export const SuperposeToast: React.FC<{ toastStyle: TextStyle, text: string }> = ({ toastStyle, text }) => {
 

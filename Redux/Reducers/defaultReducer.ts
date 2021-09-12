@@ -4,7 +4,7 @@ import {
 
 import { actionType } from '../Actions/Actions'
 import { StoreType } from '../Store';
-import { QAinitialState } from '../../../Views/Play/Q&A';
+import { QAinitialState } from '../../Views/Play/Q&A';
 
 const initialState: StoreType = QAinitialState
 
@@ -12,11 +12,16 @@ export function defaultReducer(state: StoreType = initialState, action: actionTy
     const type = action.type
     let questionnaires = state.questionnaires
 
-    if (type === ADD_ONE_ANSWERED) {
-        let payload = action.payload
 
-        //Le sumo 1
-        questionnaires[payload].values.answeredQuestions += 1
+    if (type === "RESET") {
+        return initialState
+    }
+
+    if (type === ADD_ONE_ANSWERED) {
+        let questionnaireName = action.payload.questionnaireName
+        let questionNumber = action.payload.questionNumber
+
+        questionnaires[questionnaireName].values.answeredQuestions.push(questionNumber)
 
         return { ...state, questionnaires }
     }

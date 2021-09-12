@@ -1,4 +1,4 @@
-import { StoreType } from "../../shared/Redux/Store"
+import { StoreType } from "../../Redux/Store"
 
 
 //tipo de una sola pregunta
@@ -39,6 +39,19 @@ const allQuestionnaires: allQuestionnairesType = {
             },
             x: "B",
             i: "http://www.maestrosdelweb.com/images/2009/08/crayones_jpg.jpg"
+        }
+        ,
+        {
+            p: "¿Cómo se llama?",
+            o: {
+
+                A: "aaPaula",
+                B: "aaPepa",
+                C: "aaCarla",
+                D: "aaCuaca",
+            },
+            x: "B",
+            i: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTdAxaoLG1g0Mb4EWelP7GC14hiN1k2VPErmTPjNOB03nMJuCXPU7yxxWk9xzVwz0vfufE&usqp=CAU"
         }
         ,
         {
@@ -334,6 +347,7 @@ const allQuestionnaires: allQuestionnairesType = {
 }
 
 
+
 //Los exporto
 export const { Acv, Heimlich, HeimlichAdultos, HeimlichBebés, Infarto, InfartoAcv, Rcp, RcpAdultos, RcpBebés, } = allQuestionnaires
 
@@ -341,15 +355,15 @@ export const { Acv, Heimlich, HeimlichAdultos, HeimlichBebés, Infarto, InfartoA
 export const QAinitialState: StoreType = {
 
     questionnaires: {
-        "InfartoAcv": { values: { answeredQuestions: 0, allQuestions: InfartoAcv.length } },
-        "Infarto": { values: { answeredQuestions: 0, allQuestions: Infarto.length } },
-        "Acv": { values: { answeredQuestions: 0, allQuestions: Acv.length } },
-        "Heimlich": { values: { answeredQuestions: 0, allQuestions: Heimlich.length } },
-        "HeimlichBebés": { values: { answeredQuestions: 0, allQuestions: HeimlichBebés.length } },
-        "HeimlichAdultos": { values: { answeredQuestions: 0, allQuestions: HeimlichAdultos.length } },
-        "Rcp": { values: { answeredQuestions: 0, allQuestions: Rcp.length } },
-        "RcpBebés": { values: { answeredQuestions: 0, allQuestions: RcpBebés.length } },
-        "RcpAdultos": { values: { answeredQuestions: 0, allQuestions: RcpAdultos.length } },
+        "InfartoAcv": { values: { answeredQuestions: [], allQuestions: InfartoAcv.length } },
+        "Infarto": { values: { answeredQuestions: [], allQuestions: Infarto.length } },
+        "Acv": { values: { answeredQuestions: [], allQuestions: Acv.length } },
+        "Heimlich": { values: { answeredQuestions: [], allQuestions: Heimlich.length } },
+        "HeimlichBebés": { values: { answeredQuestions: [], allQuestions: HeimlichBebés.length } },
+        "HeimlichAdultos": { values: { answeredQuestions: [], allQuestions: HeimlichAdultos.length } },
+        "Rcp": { values: { answeredQuestions: [], allQuestions: Rcp.length } },
+        "RcpBebés": { values: { answeredQuestions: [], allQuestions: RcpBebés.length } },
+        "RcpAdultos": { values: { answeredQuestions: [], allQuestions: RcpAdultos.length } },
     }
 
 }

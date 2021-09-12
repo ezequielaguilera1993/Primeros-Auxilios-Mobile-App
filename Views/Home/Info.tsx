@@ -12,20 +12,14 @@ import {
     FlatList,
     Image
 } from 'react-native';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { InfoProps } from '../../App'
 import Icon from 'react-native-ionicons'
-import LanguageContext from '../../Context/globalContext';
 import { SText } from '../Components/Components';
 
 
 export function Info({ route, navigation }: InfoProps) {
-    // const inSpanish = useContext(LanguageContext).languageState.inSpanish
-    // const languageContext = useContext(LanguageContext)
-    // 
-    // function handleOnPres() {
-    // navigation.navigate("Home")
-    // }
+
 
     return (
         <View >

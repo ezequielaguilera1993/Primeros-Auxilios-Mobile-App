@@ -19,28 +19,25 @@ import { InfartoAcv, Infarto, Acv, Heimlich, HeimlichBebés, HeimlichAdultos, Rc
 import { QA, iPregunta } from './Q&A';
 import { isIterationStatement } from 'typescript';
 import { useDispatch, useSelector } from 'react-redux';
-import { StoreType } from '../../shared/Redux/Store';
-import { RootState } from '../../shared/Redux/Reducers';
-import { addOneAnswered } from '../../shared/Redux/Actions/Actions';
+import { StoreType } from '../../Redux/Store';
+import { RootState } from '../../Redux/Reducers';
+import { actionType, addOneAnswered, reset, } from '../../Redux/Actions/Actions';
 import { SuperposeToast } from './SuperposeToast';
-// Toast.show('This is a toast.');
 
-// Toast.show('This is nicely visible even if you call this when an Alert is shown', Toast.SHORT, [
-// 'UIAlertController',
-// ]);
+
+let goodOnes = 0
 
 
 export function Play({ route, navigation }: PlayProps) {
+    const routeParamQuestionnaireName = route.params.option
+    useEffect(() => { goodOnes = 0 }, [])
 
-    // const dispatch = useDispatch();
-    // useEffect(() => {
-    //     dispatch(addOneAnswered("Acv"))
-    // }, [])
+    const store: StoreType = useSelector((state: RootState) => state).defaultReducer
+    const currentQuestionnaireValues = store.questionnaires[routeParamQuestionnaireName].values
+    const { allQuestions, answeredQuestions } = currentQuestionnaireValues
 
-    // useEffect(() => {
+    const dispatch = useDispatch();
 
-
-    // }, [])
     const TOAST_CORRECTA = "Correcta 😎"
     const TOAST_INCORRECTA = "Incorrecta😕"
     const [toast, SETtoast] = useState<typeof TOAST_CORRECTA | typeof TOAST_INCORRECTA | null>(null)
@@ -48,7 +45,7 @@ export function Play({ route, navigation }: PlayProps) {
     let [cursor, SETcursor] = useState<number>(0)
 
     let choosenStack: QA;
-    switch (route.params.option) {
+    switch (routeParamQuestionnaireName) {
         case "InfartoAcv": choosenStack = InfartoAcv
             break;
         case "Infarto": choosenStack = Infarto
@@ -74,9 +71,7 @@ export function Play({ route, navigation }: PlayProps) {
     const currentQuestion: iPregunta = choosenStack[cursor]
 
 
-    let goodOnes = 0
-
-
+    console.log(currentQuestionnaireValues);
     const Option: React.FC<{ textStyle?: TextStyle, optionSelected: "A" | "B" | "C" | "D" }> = ({ optionSelected, textStyle }) => {
 
         async function checkOption(choosenOption: string) {
@@ -85,6 +80,11 @@ export function Play({ route, navigation }: PlayProps) {
                 await SETtoast(null)
                 SETtoast("Correcta 😎");
                 ++goodOnes
+                if (!answeredQuestions.includes(cursor)) {
+
+                    dispatch<actionType>(addOneAnswered({ questionnaireName: routeParamQuestionnaireName, questionNumber: cursor }))
+
+                }
             }
 
             else {
@@ -94,14 +94,17 @@ export function Play({ route, navigation }: PlayProps) {
 
             if (cursor === choosenStack.length - 1) //Esta en lo ultimo? Volve al Home
             {
-                if (goodOnes > 0) {
-                    Alert.alert(`Contestaste ${goodOnes} ${goodOnes === 1 ? "pregunta" : "preguntas"} bien de un total de ${choosenStack.length}`)
-                }
-                else Alert.alert(`No contestaste ninguna pregunta bien. Suerte la próxima🍀`)
+                setTimeout(() => {
+                    if (goodOnes > 0) {
+                        Alert.alert(`Contestaste ${goodOnes} ${goodOnes === 1 ? "pregunta" : "preguntas"} bien de un total de ${choosenStack.length}`)
+                    }
+                    else Alert.alert(`No contestaste ninguna pregunta bien. Suerte la próxima🍀`)
 
-                navigation.navigate("Home")
+                    navigation.navigate("Home")
+                }
+                    , 500)
             }
-            SETcursor(++cursor)
+            else SETcursor(++cursor) //sino, corre el cursor
         }
 
         return <TouchableHighlight onPress={() => { checkOption(optionSelected) }} activeOpacity={.9} underlayColor="transparent" >
@@ -135,6 +138,8 @@ export function Play({ route, navigation }: PlayProps) {
                 :
                 null
             }
+
+
 
         </View>
 

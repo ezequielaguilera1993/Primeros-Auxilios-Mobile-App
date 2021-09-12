@@ -12,63 +12,58 @@ import {
     FlatList,
     Image
 } from 'react-native';
-import React, { useContext, useEffect, useLayoutEffect, useState } from 'react';
+import React, { useEffect, useLayoutEffect, useState } from 'react';
 import { options, TopicsProps } from '../../App'
 import Icon from 'react-native-ionicons'
-import LanguageContext, { LanguageContextConsumer } from '../../Context/globalContext';
 import { SText } from '../Components/Components';
 import { EnumDeclaration, EnumMember, EnumType } from 'typescript';
 import { questionnaireNamesTypes } from '../Play/Q&A';
-import { StoreType } from '../../shared/Redux/Store';
-import { useSelector } from 'react-redux';
-import { RootState } from '../../shared/Redux/Reducers';
+import { questionnaireValues, StoreType } from '../../Redux/Store';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../../Redux/Reducers';
 
-
-
+import { questionnaireProperties } from '../../Redux/Store';
+import { actionType, reset } from '../../Redux/Actions/Actions';
 
 export function Topics({ route, navigation }: TopicsProps) {
+    const dispatch = useDispatch()
 
     const store: StoreType = useSelector((state: RootState) => state).defaultReducer
-    type values = {
+    type valuesType = {
         allQuestions: number;
         answeredQuestions: number;
     }
-    const valuesInfartoAcv: values = store.questionnaires["InfartoAcv"].values
-    const valuesRcp: values = store.questionnaires["Rcp"].values
-    const valuesHeimlich: values = store.questionnaires["Heimlich"].values
 
-    const valuesInfarto: values = store.questionnaires["Infarto"].values
-    const valuesAcv: values = store.questionnaires["Acv"].values
-    const valuesRcpBebés: values = store.questionnaires["RcpBebés"].values
+    const valuesInfartoAcv: questionnaireValues = store.questionnaires["InfartoAcv"].values
+    const valuesRcp: questionnaireValues = store.questionnaires["Rcp"].values
+    const valuesHeimlich: questionnaireValues = store.questionnaires["Heimlich"].values
 
-    const valuesRcpAdultos: values = store.questionnaires["RcpAdultos"].values
-    const valuesHeimlichBebés: values = store.questionnaires["HeimlichBebés"].values
-    const valuesHeimlichAdultos: values = store.questionnaires["HeimlichAdultos"].values
+    const valuesInfarto: questionnaireValues = store.questionnaires["Infarto"].values
+    const valuesAcv: questionnaireValues = store.questionnaires["Acv"].values
+    const valuesRcpBebés: questionnaireValues = store.questionnaires["RcpBebés"].values
+
+    const valuesRcpAdultos: questionnaireValues = store.questionnaires["RcpAdultos"].values
+    const valuesHeimlichBebés: questionnaireValues = store.questionnaires["HeimlichBebés"].values
+    const valuesHeimlichAdultos: questionnaireValues = store.questionnaires["HeimlichAdultos"].values
 
 
     function handleOnPres(option: questionnaireNamesTypes) {
         navigation.navigate("Play", { option })
     }
 
-    const Cuestionario: React.FC<{ label: string, option: questionnaireNamesTypes, values: values }> = ({ label, option }) => {
+    const Cuestionario: React.FC<{ label: string, option: questionnaireNamesTypes, values: questionnaireValues }> = ({ label, option, values }) => {
 
         return <TouchableHighlight style={{
             width: "70%"
         }} onPress={() => handleOnPres(option)} activeOpacity={.9} underlayColor="transparent" >
             {/* <Image style={s.image} source={{ uri: "https://picsum.photos/100" }} /> */}
             <View style={s.cuestionarioContainer}>
-                <SText style={s.cuestionario}>{label}</SText>
+                <SText customStyle={s.cuestionario}>{label}</SText>
 
-                <SText style={s.cuestionario}>{valuesAcv.answeredQuestions + " / " + valuesAcv.allQuestions}</SText>
+                <SText customStyle={s.cuestionario}>{values.answeredQuestions.length + " / " + values.allQuestions}</SText>
             </View>
         </TouchableHighlight>
     }
-    // let languageContext = useContext(LanguageContext)
-    // let isSpanish = languageContext.languageState.inSpanish
-
-    // const [isSpanish, SETisSpanish] = useState<boolean>(false)
-
-    // let changeLanguage = () => { languageContext.languageDispatch({ type: "CHANGE_LANGUAGE" }) }
 
 
 
@@ -79,18 +74,20 @@ export function Topics({ route, navigation }: TopicsProps) {
             <View style={{ alignItems: "center" }} >
                 <SText customStyle={s.title}>Cuestionarios Generales</SText>
 
-                <Cuestionario option={"InfartoAcv"} label="Infarto/Acv" />
-                <Cuestionario option={"Rcp"} label="Rcp" />
-                <Cuestionario option={"Heimlich"} label="Heimlich" />
+                <Cuestionario values={valuesInfartoAcv} option={"InfartoAcv"} label="Infarto/Acv" />
+                <Cuestionario values={valuesRcp} option={"Rcp"} label="Rcp" />
+                <Cuestionario values={valuesHeimlich} option={"Heimlich"} label="Heimlich" />
 
                 <SText customStyle={s.title}>Cuestionarios Especificos</SText>
 
-                <Cuestionario option={"Infarto"} label="Infarto" />
-                <Cuestionario option={"Acv"} label="Acv" />
-                <Cuestionario option={"RcpBebés"} label="Rcp en Bebés" />
-                <Cuestionario option={"RcpAdultos"} label="Rcp en Adultos" />
-                <Cuestionario option={"HeimlichBebés"} label="Heimlich en Bebés" />
-                <Cuestionario option={"HeimlichAdultos"} label="Heimlich en Adultos" />
+                <Cuestionario values={valuesInfarto} option={"Infarto"} label="Infarto" />
+                <Cuestionario values={valuesAcv} option={"Acv"} label="Acv" />
+                <Cuestionario values={valuesRcpBebés} option={"RcpBebés"} label="Rcp en Bebés" />
+                <Cuestionario values={valuesRcpAdultos} option={"RcpAdultos"} label="Rcp en Adultos" />
+                <Cuestionario values={valuesHeimlichBebés} option={"HeimlichBebés"} label="Heimlich en Bebés" />
+                <Cuestionario values={valuesHeimlichAdultos} option={"HeimlichAdultos"} label="Heimlich en Adultos" />
+                <Button title="reset" onPress={() => dispatch<actionType>(reset())} />
+
             </View>
         </ScrollView>
     )

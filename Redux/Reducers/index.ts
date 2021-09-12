@@ -6,6 +6,6 @@ export const rootReducer = combineReducers({
     defaultReducer
 });
 
-export type RootState = ReturnType<typeof rootReducer>;//Para el useSelector
+export type RootState = ReturnType<typeof rootReducer>;
 
 export const ReducerIndexSignal = "ReducerIndexSignal"

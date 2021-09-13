@@ -15,7 +15,7 @@ import {
 import React, { useEffect, useLayoutEffect, useState } from 'react';
 import { options, TopicsProps } from '../../App'
 import Icon from 'react-native-ionicons'
-import { SText } from '../Components/Components';
+import { SText, SAlert } from '../Components/Components';
 import { EnumDeclaration, EnumMember, EnumType } from 'typescript';
 import { questionnaireNamesTypes } from '../Play/Q&A';
 import { questionnaireValues, StoreType } from '../../Redux/Store';
@@ -71,7 +71,7 @@ export function Topics({ route, navigation }: TopicsProps) {
     return (
         <ScrollView >
 
-            <View style={{ alignItems: "center" }} >
+            <View style={{ alignItems: "center", padding: 0 }} >
                 <SText customStyle={s.title}>Cuestionarios Generales</SText>
 
                 <Cuestionario values={valuesInfartoAcv} option={"InfartoAcv"} label="Infarto/Acv" />
@@ -86,9 +86,18 @@ export function Topics({ route, navigation }: TopicsProps) {
                 <Cuestionario values={valuesRcpAdultos} option={"RcpAdultos"} label="Rcp en Adultos" />
                 <Cuestionario values={valuesHeimlichBebés} option={"HeimlichBebés"} label="Heimlich en Bebés" />
                 <Cuestionario values={valuesHeimlichAdultos} option={"HeimlichAdultos"} label="Heimlich en Adultos" />
-                <Button title="reset" onPress={() => dispatch<actionType>(reset())} />
 
+                <SAlert title="Reestablecer preguntas" label="Esta acción eliminará todas las preguntas contestadas correctamente, dejando los datos en cero." alertButtons={
+                    [
+                        { text: "Borra todo chango", onPress: () => dispatch<actionType>(reset()) },
+                        { text: "Nooo, cancelar!" },
+
+                    ]
+                }  >
+                    Reestablecer
+                </SAlert>
             </View>
+
         </ScrollView>
     )
 }

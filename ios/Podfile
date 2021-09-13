@@ -12,6 +12,8 @@ target 'AwesomeTSProject' do
     :hermes_enabled => false
   )
 
+  pod 'RNSentry', :path => '../node_modules/@sentry/react-native'
+
   target 'AwesomeTSProjectTests' do
     inherit! :complete
     # Pods for testing

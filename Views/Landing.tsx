@@ -19,6 +19,7 @@ import Icon from 'react-native-ionicons'
 import DropShadow from "react-native-drop-shadow";
 import { useDispatch } from 'react-redux';
 import { actionType, reset } from '../Redux/Actions/Actions';
+import * as Sentry from "@sentry/react-native";
 
 export function Landing({ route, navigation }: LandingProps) {
 
@@ -97,6 +98,7 @@ export function Landing({ route, navigation }: LandingProps) {
                 }}
             >
                 <Button title="Ingresar" onPress={handleOnPres} />
+                <Button title="ythroerror" onPress={() => { Sentry.captureMessage("Something went wrong"); }} />
 
             </DropShadow>
             {/* <Animated.View style={{ backgroundColor: "yellow", height: 100, width: 100, transform: [{ translateX: translation }] }}></Animated.View> */}

@@ -78,7 +78,7 @@ const App: React.FC = () => {
 
     return (
       <Tab.Navigator
-        screenOptions={{ tabBarActiveBackgroundColor: "rgb(40, 40, 40)", tabBarInactiveBackgroundColor: "rgb(30, 30, 30)" }}
+        screenOptions={{ tabBarActiveBackgroundColor: "rgb(40, 40, 40)", tabBarInactiveBackgroundColor: "rgb(30, 30, 30)", headerShown: false }}
       >
         <Tab.Screen
           name="Topics"
@@ -123,6 +123,7 @@ const App: React.FC = () => {
                 options={{ title: "Play" }}
               />
             </Stack.Navigator>
+
           </NavigationContainer>
         </View>
 

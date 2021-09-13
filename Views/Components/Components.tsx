@@ -12,25 +12,48 @@ import {
     FlatList,
     TextStyle,
     StyleProp,
-    TouchableHighlightProps
+    TouchableHighlightProps,
+    AlertButton
 } from 'react-native';
 import React from 'react';
 //
 import { useRef } from "react";
 import { Animated } from "react-native";
 
-export const STouch: React.FC<{ customStyle?: TouchableHighlightProps }> = ({ children, customStyle }) => {
+export const SAlert: React.FC<{ customStyle?: TextStyle, alertButtons?: AlertButton[], title?: string, label?: string }> = ({ children, customStyle, alertButtons, title = ""
+    , label }) => {
     return (
-        <TouchableHighlight
-            {...customStyle}
-        >
-            {children}
+        <TouchableHighlight onPress={() =>
+
+            Alert.alert(title, label,
+                alertButtons
+                ,
+                { cancelable: true }
+            )}>
+
+            <Text
+                style={[{
+                    backgroundColor: "#066e88",
+                    paddingVertical: 5,
+                    paddingHorizontal: 6,
+                    borderRadius: 7,
+                    marginHorizontal: 2,
+                    marginVertical: 20,
+                    marginBottom: 6,
+                    fontSize: 18,
+                    width: "80%",
+                    textAlign: "center",
+                    color: "white"
+                }, customStyle,]}>
+                {children}
+            </Text>
+
         </TouchableHighlight>
-    );
-};
+    )
+}
 
 
-export const SButton: React.FC<{ customStyle?: TextStyle }> = ({ children, customStyle }) => {
+export const SText: React.FC<{ customStyle?: TextStyle }> = ({ children, customStyle }) => {
     return (
         <Text
             style={[{ color: "white" }, customStyle]}>
@@ -67,19 +90,19 @@ export const Prueba = () => {
     };
 
     return (
-        <SafeAreaView style={styles.container}>
+        <SafeAreaView style={s.container}>
             <Animated.View
                 style={[
-                    styles.fadingContainer,
+                    s.fadingContainer,
                     {
                         // Bind opacity to animated value
                         opacity: fadeAnim
                     }
                 ]}
             >
-                <Text style={styles.fadingText}>Fading View!</Text>
+                <Text style={s.fadingText}>Fading View!</Text>
             </Animated.View>
-            <View style={styles.buttonRow}>
+            <View style={s.buttonRow}>
                 <Button title="Fade In View" onPress={fadeIn} />
                 <Button title="Fade Out View" onPress={fadeOut} />
             </View>
@@ -87,7 +110,7 @@ export const Prueba = () => {
     );
 }
 
-const styles = StyleSheet.create({
+const s = StyleSheet.create({
     container: {
         flex: 1,
         alignItems: "center",

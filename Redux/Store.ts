@@ -1,7 +1,7 @@
 import { createStore, applyMiddleware, compose, AnyAction, Store } from 'redux';
 import thunk from 'redux-thunk';
 import { rootReducer, RootState } from './Reducers';
-import { questionnaireNamesTypes } from '../Views/Play/Q&A';
+import { questionnaireNamesTypes } from '../Views/Play/Q&A/Q&A';
 import { persistStore, persistReducer } from 'redux-persist'
 import AsyncStorage, { AsyncStorageStatic } from '@react-native-async-storage/async-storage';
 import { defaultReducer } from './Reducers/defaultReducer';

@@ -29,7 +29,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import { Topics } from './Views/Home/Topics';
 import { Provider, } from "react-redux"; //Sirve para proveer el estado global de redux a los componentes de React
 import { persistor, store } from './Redux/Store';
-import { questionnaireNamesTypes } from './Views/Play/Q&A';
+import { questionnaireNamesTypes } from './Views/Play/Q&A/Q&A';
 import { PersistGate } from 'redux-persist/integration/react';
 import { actionType, addOneAnswered, addOneAnsweredType, reset } from './Redux/Actions/Actions';
 

@@ -17,7 +17,7 @@ import { options, TopicsProps } from '../../App'
 import Icon from 'react-native-ionicons'
 import { SText, SAlert } from '../Components/Components';
 import { EnumDeclaration, EnumMember, EnumType } from 'typescript';
-import { questionnaireNamesTypes } from '../Play/Q&A';
+import { questionnaireNamesTypes } from '../Play/Q&A/Q&A';
 import { questionnaireValues, StoreType } from '../../Redux/Store';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../Redux/Reducers';

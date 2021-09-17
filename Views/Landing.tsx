@@ -82,9 +82,10 @@ export function Landing({ route, navigation }: LandingProps) {
     }, [translation])
 
     return (
-        <View >
-            <Button title={"anda la osachange Language"} onPress={() => { }} />
-            <Animated.Image style={[styles.image, { transform: [{ scale: translation }] }]} source={{ uri: "https://i.imgur.com/8awXiKU.png" }} />
+        <View  >
+            {/* <Button title={"anda la osachange Language"} onPress={() => { }} /> */}
+
+            <Animated.Image style={[styles.image, { transform: [{ scale: translation }], width: "100%" }]} source={{ uri: "https://i.imgur.com/8awXiKU.png" }} />
 
             <DropShadow
                 style={{

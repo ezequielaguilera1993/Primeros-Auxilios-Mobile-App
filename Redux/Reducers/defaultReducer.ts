@@ -4,7 +4,7 @@ import {
 
 import { actionType } from '../Actions/Actions'
 import { StoreType } from '../Store';
-import { QAinitialState } from '../../Views/Play/Q&A';
+import { QAinitialState } from '../../Views/Play/Q&A/Q&A';
 
 const initialState: StoreType = QAinitialState
 

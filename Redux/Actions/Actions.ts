@@ -4,7 +4,7 @@ import {
     ADD_ONE_ANSWERED
 } from './ActionsNames'
 
-import { questionnaireNamesTypes } from '../../Views/Play/Q&A';
+import { questionnaireNamesTypes } from '../../Views/Play/Q&A/Q&A';
 
 
 export type actionType = addOneAnsweredType | reset

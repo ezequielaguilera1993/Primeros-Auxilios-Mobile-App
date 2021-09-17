@@ -14,9 +14,11 @@ import React, { useEffect, useRef, useState } from 'react';
 import Icon from 'react-native-ionicons'
 import { options, PlayProps } from '../../App'
 import { SText } from '../Components/Components';
-import { InfartoAcv, Infarto, Acv, Heimlich, HeimlichBebés, HeimlichAdultos, Rcp, RcpBebés, RcpAdultos } from './Q&A';
+import { allQuestionnaires } from './Q&A/Q&A'
+const { InfartoAcv, Infarto, Acv, Heimlich, HeimlichBebés, HeimlichAdultos, Rcp, RcpBebés, RcpAdultos } = allQuestionnaires
 
-import { QA, iPregunta } from './Q&A';
+
+import { QA, iPregunta } from './Q&A/Q&A';
 import { isIterationStatement } from 'typescript';
 import { useDispatch, useSelector } from 'react-redux';
 import { StoreType } from '../../Redux/Store';
@@ -71,7 +73,6 @@ export function Play({ route, navigation }: PlayProps) {
     const currentQuestion: iPregunta = choosenStack[cursor]
 
 
-    console.log(currentQuestionnaireValues);
     const Option: React.FC<{ textStyle?: TextStyle, optionSelected: "A" | "B" | "C" | "D" }> = ({ optionSelected, textStyle }) => {
 
         async function checkOption(choosenOption: string) {
@@ -98,40 +99,36 @@ export function Play({ route, navigation }: PlayProps) {
                     if (goodOnes > 0) {
                         Alert.alert(`Contestaste ${goodOnes} ${goodOnes === 1 ? "pregunta" : "preguntas"} bien de un total de ${choosenStack.length}`)
                     }
-                    else Alert.alert(`No contestaste ninguna pregunta bien. Suerte la próxima🍀`)
+                    else Alert.alert(`No contestaste ninguna pregunta bien.`, 'Suerte la próxima🍀')
 
                     navigation.navigate("Home")
                 }
-                    , 500)
+                    , 100)
             }
             else SETcursor(++cursor) //sino, corre el cursor
         }
 
-        return <TouchableHighlight onPress={() => { checkOption(optionSelected) }} activeOpacity={.9} underlayColor="transparent" >
-            <View>
-                <SText customStyle={textStyle}>{currentQuestion.o[optionSelected]}</SText>
-            </View>
+        return <TouchableHighlight style={{ height: "7.4%" }} onPress={() => { checkOption(optionSelected) }} activeOpacity={.9} underlayColor="transparent" >
+            <SText customStyle={{ ...textStyle, flex: 1 }}>{currentQuestion.o[optionSelected]}</SText>
         </TouchableHighlight>
-
     }
-
 
 
     return (
 
-        <View style={{ flex: 1 }} >
+        <View style={{ flex: 1 }}>
             <Image style={s.image} source={{ uri: currentQuestion.i }} />
-            <SText customStyle={s.pregunta}>{currentQuestion.p}</SText>
 
+            <SText customStyle={s.pregunta}>{currentQuestion.p}</SText>
 
             <Option textStyle={s.option} optionSelected="A" />
             <Option textStyle={s.option} optionSelected="B" />
             <Option textStyle={s.option} optionSelected="C" />
             <Option textStyle={s.option} optionSelected="D" />
-            <Button title="test_Toast" onPress={() => {
-                SETtoast(toast === TOAST_CORRECTA ? TOAST_INCORRECTA : TOAST_CORRECTA)
-            }
-            } />
+            {/* <Button title="test_Toast" onPress={() => {
+                    SETtoast(toast === TOAST_CORRECTA ? TOAST_INCORRECTA : TOAST_CORRECTA)
+                }
+                } /> */}
             {toast ?
 
                 <SuperposeToast text={toast} toastStyle={{}} />
@@ -139,10 +136,7 @@ export function Play({ route, navigation }: PlayProps) {
                 null
             }
 
-
-
         </View>
-
 
     )
 }
@@ -151,21 +145,22 @@ const s = StyleSheet.create({
 
     image: {
         width: "100%",
-        height: 270,
+        height: "50%",
         resizeMode: "contain", /* por defecto cover */
         borderRadius: 10,
-        marginVertical: 10
     },
     pregunta: {
         backgroundColor: "white",
         color: "black",
-        marginVertical: 2,
         paddingVertical: 2,
         paddingHorizontal: 6,
         alignSelf: "center",
         textAlign: "center",
         fontSize: 24,
-        borderRadius: 7
+        borderRadius: 7,
+        marginBottom: 2,
+
+
     },
     option: {
         backgroundColor: "#066e88",
@@ -180,7 +175,7 @@ const s = StyleSheet.create({
         alignContent: "center",
         fontSize: 18,
         width: "80%",
-        alignSelf: "center"
+        alignSelf: "center",
     },
 
 });

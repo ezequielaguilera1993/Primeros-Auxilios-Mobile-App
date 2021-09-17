@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import { Animated, TextStyle } from 'react-native';
+import { Animated, Button, TextStyle } from 'react-native';
 import Toast from 'react-native-simple-toast';
 
 export const SuperposeToast: React.FC<{ toastStyle: TextStyle, text: string }> = ({ toastStyle, text }) => {
@@ -43,9 +43,13 @@ export const SuperposeToast: React.FC<{ toastStyle: TextStyle, text: string }> =
         SuperposeToastAnimation(animateValue, 0, 1, 100, 300, 300)
     }, [text])
 
-    return <Animated.Text style={[{
-        color: "black", opacity: animateValue, alignSelf: "center", position: "absolute", bottom: 80,
-        backgroundColor: "#cddce0", borderRadius: 20, fontSize: 20, paddingHorizontal: 10, paddingVertical: 3,
-        fontWeight: "600"
-    }, toastStyle]}>{text}</Animated.Text>
+    return (
+        <Animated.Text style={[{
+            color: "black", opacity: animateValue, alignSelf: "center", position: "absolute", bottom: 20,
+            backgroundColor: "#cddce0", borderRadius: 20, fontSize: 20, paddingHorizontal: 10, paddingVertical: 3,
+            fontWeight: "600"
+        }, toastStyle]}>{text}</Animated.Text>
+    )
 }
+
+{/* <Button title="Hola" onPress={() => { }} /> */ }
